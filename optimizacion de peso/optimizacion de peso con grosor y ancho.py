@@ -51,28 +51,28 @@ class CalculatorInterface:
             area = grosor * ancho
 
             # Calcular peso
-            weight = area  * densidad
+            weight = area * longitud * densidad
 
-            # Define the variables as sympy symbols
+            # Definir
             x, y, z = symbols('x y z')
 
-            # Define the function to calculate the weight
+            # Definir funsion
             f = x * y * z
 
             # Calculate the first derivative
-            change_reason = diff(f, x).subs({x: grosor, y: ancho, z: densidad}) + \
-                            diff(f, y).subs({x: grosor, y: ancho, z: densidad}) + \
-                            diff(f, z).subs({x: grosor, y: ancho, z: densidad})
+            change_reason = diff(f, x).subs({x: area, y: longitud, z: densidad}) + \
+                            diff(f, y).subs({x: area, y: longitud, z: densidad}) + \
+                            diff(f, z).subs({x: area, y: longitud, z: densidad})
 
             # Calculate the second derivative
-            change_reason_above = diff(diff(f, x), x).subs({x: grosor, y: ancho, z: densidad}) + \
-                                diff(diff(f, y), y).subs({x: grosor, y: ancho, z: densidad}) + \
-                                diff(diff(f, z), z).subs({x: grosor, y: ancho, z: densidad})
+            change_reason_above = diff(diff(f, x), x).subs({x: area, y: longitud, z: densidad}) + \
+                                diff(diff(f, y), y).subs({x: area, y: longitud, z: densidad}) + \
+                                diff(diff(f, z), z).subs({x: area, y: longitud, z: densidad})
 
             
-            # Create a function for the graphic
+            # Crear funcfion grfica
             def weight_function(x):
-                return (change_reason * x) + (grosor * ancho * densidad)
+                return (change_reason * x)
 
             # Create a 2D plot of weight vs. area
             x_values = np.linspace(0, 10, 10)  # area values
